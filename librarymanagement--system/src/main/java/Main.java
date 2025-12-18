@@ -46,7 +46,8 @@ public class Main {
         // Вывод журнала операций
         System.out.println("\n=== ЖУРНАЛ ОПЕРАЦИЙ ===");
         library.printOperationLog();
-
+        //пишу эту строку, что изменить main
+        
         // Дополнительно: покажем все доступные книги после возврата
         System.out.println("\n=== ВСЕ ДОСТУПНЫЕ КНИГИ ===");
         for (Book book : library.getAvailableBooks()) {
