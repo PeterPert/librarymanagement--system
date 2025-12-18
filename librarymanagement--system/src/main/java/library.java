@@ -153,6 +153,16 @@ public class Library {
         return result;
     }
 
+    public boolean removeBook(int id) {
+        Book book = findBookById(id);
+        if (book != null && books.remove(book)) {
+            operationLog.addEntry(OperationLog.OperationType.ADD_BOOK,
+                    "Удалена книга: \"" + book.getTitle() + "\" (ID: " + id + ")");
+            return true;
+        }
+        return false;
+    }
+
     // printOperationLog() — выводит журнал всех операций
     public void printOperationLog() {
         operationLog.printLog();
