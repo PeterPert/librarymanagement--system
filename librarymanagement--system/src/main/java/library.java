@@ -163,6 +163,46 @@ public class Library {
         return false;
     }
 
+    public boolean updateBook(int id, Book newData) {
+        // Находим индекс книги в списке
+        int index = -1;
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getId() == id) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
+            operationLog.addEntry(OperationLog.OperationType.ADD_BOOK,
+                    "Попытка обновления: Книга с ID " + id + " не найдена");
+            return false;
+        }
+
+        // Сохраняем старую книгу для лога
+        Book oldBook = books.get(index);
+        String oldTitle = oldBook.getTitle();
+
+        // Заменяем книгу на новую (но сохраняем тот же ID и статус доступности)
+        Book updatedBook = new Book(
+                id, // Сохраняем оригинальный ID
+                newData.getTitle(),
+                newData.getAuthor(),
+                newData.getYear(),
+                newData.getIsbn()
+        );
+
+        // Сохраняем статус доступности из старой книги
+        updatedBook.setAvailable(oldBook.isAvailable());
+
+        // Заменяем книгу в списке
+        books.set(index, updatedBook);
+
+        operationLog.addEntry(OperationLog.OperationType.ADD_BOOK,
+                "Обновлена книга: \"" + oldTitle + "\" → \"" + newData.getTitle() + "\" (ID: " + id + ")");
+
+        return true;
+    }
     // printOperationLog() — выводит журнал всех операций
     public void printOperationLog() {
         operationLog.printLog();
