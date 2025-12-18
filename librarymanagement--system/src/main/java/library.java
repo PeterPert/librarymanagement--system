@@ -12,6 +12,24 @@ public class Library {
         this.operationLog = new OperationLog();
     }
 
+    // Добавьте этот метод в класс Library (после других методов)
+    public String getStatistics() {
+        int totalBooks = books.size();
+        int availableBooks = 0;
+
+        for (Book book : books) {
+            if (book.isAvailable()) {
+                availableBooks++;
+            }
+        }
+
+        int borrowedBooks = totalBooks - availableBooks;
+
+        return String.format("Общее количество книг: %d\n" +
+                        "Доступно: %d\n" +
+                        "Выдано: %d",
+                totalBooks, availableBooks, borrowedBooks);
+    }
     // Вложенный статический класс для журнала операций
     public static class OperationLog {
         // Внутренний класс для записи операции
